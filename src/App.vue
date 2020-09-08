@@ -2330,7 +2330,7 @@ select.form-control:focus {
   left: 0;
   right: 0;
   background-color: #ffff;
-  background-image: url('/dist/images/menu-bg.jpg');
+  background-image: url('/dist/images/background-menu.jpg');
   background-position: cover;
   border-top: solid 1px #e5e9ec;
   border-bottom: solid 1px #e6e9f1;
