@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import removeVietnameseFromString from '../helpder/index'
+import {removeVietnameseFromString} from '../helpder/index'
 import {mapState} from 'vuex'
 export default {
     name:"comp-navigation",

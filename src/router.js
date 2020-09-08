@@ -9,51 +9,77 @@ import Upload from './pages/UploadFile.vue'
 import PostDetail from './pages/PostDetaill.vue'
 import ProfilePage from "./pages/ProfilePage.vue";
 import UserPage from "./pages/UserPage.vue";
+import ChangePassword from "./pages/ChangePassword.vue";
+import Search from './pages/Search.vue'
 
 
+import { ifNotAuthenticated, ifAuthenticated } from "./plugins/authenticator";
 
 const routes = [
-{ 
+  {
     path: "/",
     component: HomePage,
-    name:"home-page"
-},
-{ 
+    name: "home-page"
+  },
+  {
     path: "/login",
     component: LoginPage,
-    name:"login-page"
-},
-{ 
+    name: "login-page",
+    beforeEnter: ifNotAuthenticated
+  },
+  {
     path: "/register",
     component: Register,
-    name:"register-page"
-},
-{ 
+    name: "register-page",
+    beforeEnter: ifNotAuthenticated
+  },
+  {
     path: "/repassword",
     component: Repassword,
-    name:"repassword-page"
-},
-{ 
+    name: "repassword-page"
+  },
+  {
     path: "/upload",
     component: Upload,
-    name:"upload-page"
-},
-{ 
+    name: "upload-page",
+    beforeEnter: ifAuthenticated
+  },
+  {
     path: "/post-detail/:id",
     component: PostDetail,
-    name:"post-detail"
-},
-{ 
-    path: "/profile/user/:id",
+    name: "post-detail"
+  },
+  {
+    path: "/user/:id/profile/",
     component: ProfilePage,
-    name:"profile-page"
-},
-{ 
+    name: "profile-page",
+    beforeEnter: ifAuthenticated
+  },
+  {
     path: "/user/:id",
     component: UserPage,
-    name:"user-page"
-},
-  
+    name: "user-page",
+    beforeEnter: ifAuthenticated
+  },
+
+  {
+    path: "/change-password/:id/profile/",
+    component: ChangePassword,
+    name: "change-password",
+    beforeEnter: ifAuthenticated
+  },
+
+
+  {
+    path: "/search",
+    component: Search,
+    name: "search-page",
+
+  },
+
+
+
+
 ];
 
 // 3. Create the router instance and pass the `routes` option

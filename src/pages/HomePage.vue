@@ -61,8 +61,6 @@ export default {
            'getListPost'
        ]),
    },
-
-
 //    watch: {
 //     '$route'(to, from) {
 //         this.tagIndex = to.query.tagIndex;
@@ -113,7 +111,6 @@ export default {
                pageSize: this.pageSize,
                currPage: this.currPage,
                tagIndex : this.tagIndex
-
            }
             var tagIndex = this.$route.query.tagIndex;
        if(tagIndex){
@@ -124,18 +121,15 @@ export default {
            //rest api getListPagination
            this.getListPagination(data)
       }
-
        }
        
    },
  
   
  
-
     
 }
 </script>
 
 <style>
-
 </style>

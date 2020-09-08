@@ -5,12 +5,13 @@ import user from './modulesUser'
 
 
 
-// import state from "./modulesPost/state";
+
 
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+
   // namespaced: true,
   strict: process.env.NODE_ENV !== "production",
   // state: state,
