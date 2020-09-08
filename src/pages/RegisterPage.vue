@@ -2,7 +2,7 @@
   <main>
         <div class="ass1-login">
             <div class="ass1-login__logo">
-            	<router-link to="/" class="ass1-logo">ZendVn Meme</router-link>
+            	<router-link to="/" class="ass1-logo">App Meme</router-link>
             </div>
             <div class="ass1-login__content">
                 <p>Đăng ký một tài khoản</p>
@@ -49,13 +49,34 @@ export default {
             if(this.email && this.fullname && this.password && this.repassword){
                 this.register(data).then(res=>{
                     if(res.ok === false){
-                        alert(res.error)
+                        // alert()
+                         this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: res.error
+                            });
+                        
                     }else{
                         this.$router.push('/')
+                        this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'success',
+                                title: 'Thông báo',
+                                text: 'Bạn đã đăng ký  thành công, hệ thống sẽ chuyển sang trang chủ!'
+                            });
                     }
                 })
             }else{
-                alert('Vui lòng nhập đầy đủ thông tin')
+                this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Vui lòng nhập đầy đủ thông tin!'
+                            });
             }
           
             

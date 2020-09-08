@@ -129,9 +129,23 @@ export default {
 		   
 		  this.update(data).then(res=>{
 			 if(res.ok){
-				 alert('Bạn đã edit thành công')
+				 //alert('Bạn đã edit thành công')
+				  this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'success',
+                                title: 'Thông báo',
+                                text: 'Bạn đã chỉnh sửa thông tin thành công'
+                            });
 			 }else{
-				 alert(res.error)
+				//  alert(res.error)
+				 this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'warn',
+                                title: 'Thông báo',
+                                text: res.error
+                            });
 			 }
 		  })
 		 }

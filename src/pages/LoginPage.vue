@@ -48,12 +48,34 @@ export default {
                this.login(data).then(res=>{
                   if(!res.ok){
                       if(typeof res.error === 'string'){
-                          alert(res.error)
+                        //   alert(res.error)
+                           this.$router.push('/')
+                       this.$notify({
+                        group: 'noti',
+                        duration: 10000,
+                        type: 'error',
+                        title: 'Thông báo',
+                        text: res.error
+                    });
                       }else{
-                          alert(res.error).join(' ')
+                        //   alert(res.error).join(' ')
+                           this.$notify({
+                        group: 'noti',
+                        duration: 10000,
+                        type: 'error',
+                        title: 'Thông báo',
+                        text: res.error.join(' ')
+                    });
                       }
                   }else{
                       this.$router.push('/')
+                       this.$notify({
+                        group: 'noti',
+                        duration: 10000,
+                        type: 'success',
+                        title: 'Thông báo',
+                        text: 'Bạn đã đăng nhập thành công!'
+                    });
                   }
                });
            }

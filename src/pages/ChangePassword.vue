@@ -64,9 +64,23 @@ export default {
             let {oldPassword,newPassword,reNewPassword} = this
             if(oldPassword && newPassword && reNewPassword){
                 if(oldPassword == newPassword ){
-                    alert('Mật khẩu cũ và mật khẩu mới không được trùng nhau')
+                    // alert('Mật khẩu cũ và mật khẩu mới không được trùng nhau')
+                    this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Mật khẩu cũ và mật khẩu mới không được trùng nhau!'
+                            });
                 }else if(newPassword != reNewPassword){
-                    alert('Mật khẩu nhập lại không khớp')
+                    // alert('Mật khẩu nhập lại không khớp')
+                    this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Mật khẩu nhập lại không khớp!'
+                            });
                 }else{
                     // ok
                      let data = {
@@ -78,7 +92,14 @@ export default {
                     this.changePassword(data).then(res=>{
                         console.log('res',res);
                         if(res.ok){
-                            alert(res.message)
+                            // alert(res.message)
+                            this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'success',
+                                title: 'Thông báo',
+                                text: res.message
+                            });
                         }else{
 
                            alert(res.error)
@@ -87,7 +108,15 @@ export default {
 
                 }
             }else{
-                alert('Vui lòng nhập đẩy đủ thông tin')
+                //alert('Vui lòng nhập đẩy đủ thông tin')
+                this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Vui lòng nhập đẩy đủ thông tin'
+                            });
+                
             }
 
 

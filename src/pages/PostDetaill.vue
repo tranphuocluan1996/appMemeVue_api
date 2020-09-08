@@ -128,7 +128,14 @@ export default {
             this.getPostDetail(this.postid).then(res=>{
             console.log('res',res);
             if(!res.ok){
-                alert('url không chính xác')
+                // alert('url không chính xác')
+                 this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Đường dẫn không chính xác'
+                            });
                 this.$router.push('/')
             }
         })
@@ -141,10 +148,24 @@ export default {
             }
                 this.PostNewCommentForNews(data).then(res=>{
                     if(res.ok){
-                        alert('Bình luận thành công')
+                        //alert('Bình luận thành công')
+                        this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'success',
+                                title: 'Thông báo',
+                                text: 'Bình luận thành công'
+                            });
                         this.newComments = ''
                     }else{
-                        alert('Lỗi bình luận')
+                        //alert('Lỗi bình luận')
+                         this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Lỗi bình luận'
+                            });
                     }
                 })
             }

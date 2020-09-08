@@ -10,6 +10,7 @@ const ifNotAuthenticated = (to,from,next)=>{
         next(); // cho phép vào 
     }else{
         alert("Vui lòng đăng xuất để thực hiện chức năng này");
+       
         next({
             name:"home-page",
             query:{

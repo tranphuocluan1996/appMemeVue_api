@@ -2,6 +2,7 @@
   <header>
 		<div class="ass1-header">
 			<div class="container">
+				
 				<router-link to='/' class="ass1-logo">
 					App Meme
 				</router-link>
@@ -77,7 +78,14 @@ export default {
 		]),
 		handleLogout(){
 			this.logout();
-			confirm('Bạn có muốn đăng xuất ?');
+			 this.$router.push('/')
+                       this.$notify({
+                        group: 'noti',
+                        duration: 10000,
+                        type: 'success',
+                        title: 'Thông báo',
+                        text: 'Bạn đã đăng xuất thành công!'
+                    });
 			this.$router.push('/login')
 		},
 		handleSearch(){

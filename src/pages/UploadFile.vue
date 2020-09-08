@@ -141,7 +141,13 @@ export default {
                     this.CreateNewPost(data).then(res=>{
                        
                         if(res.ok){
-                             alert('Bạn đã đăng bài thành công !');
+                             this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'success',
+                                title: 'Thông báo',
+                                text: 'Bạn đã đăng bài thành công!'
+                            });
                                this.categories = [],
                                 this.url_image = '',
                                 this.post_content = '',  
@@ -150,14 +156,34 @@ export default {
                                     baseUrl64 :'' //preview hiển thị lên cho người dùng xem ok k
                                 }  
                         }else{
-                            alert(res.ok)
+                            //alert(res.ok)
+                            this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'success',
+                                title: 'Thông báo',
+                                text: res.ok
+                            });
+                            
                         }
                     });
                 }else{
-                     alert('Không được bỏ trống!')
+                       this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Không được để trống!'
+                            });
                 }
             }else{
-                alert('Vui lòng nhập đầy đủ thông tin')
+                 this.$notify({
+                                group: 'noti',
+                                duration: 10000,
+                                type: 'error',
+                                title: 'Thông báo',
+                                text: 'Vui lòng nhập đầy đủ thông tin!'
+                            });
             }
         }
     },

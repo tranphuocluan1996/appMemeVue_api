@@ -1,10 +1,16 @@
 <template>
+
   <div id="app">
+    
+   
       <comp-header v-if="this.isRenderHeader" />
+       <notifications group="noti" position='bottom right'/>
      <router-view></router-view>
       <comp-footer v-if="this.isRenderFooter" />
       <loading v-if="isLoading" v-bind:class="{ show: isLoading}" />
+      
   </div>
+  
 </template>
 
 <script>
@@ -16,6 +22,7 @@ import $ from "jquery";
 export default {
   name: 'app',
   mounted() {
+      
     // khi mà component load thành công thì dùng cái này 
      $(".ass1-header__menu li > a").click(function(e) {
             // $(".ass1-header__nav").hide();
@@ -24,6 +31,7 @@ export default {
     $(".ass1-header__nav ul li > a").click(function (e) {  
       $(this).parents('.ass1-header__nav').slideUp()
     })
+ 
   },
   data () {
     return {
@@ -66,11 +74,14 @@ export default {
   created() {
     this.checkLogin()
   },
+
 }
 </script>
 
 <style>
+
 body {
+  
   font-family: 'Roboto', sans-serif;
   background-color: #eef3f6;
   font-size: 16px;
