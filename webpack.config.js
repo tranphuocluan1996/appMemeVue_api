@@ -1,11 +1,12 @@
 var path = require('path')
 var webpack = require('webpack')
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   entry: ["babel-polyfill", "./src/main.js"],
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, './public'),
+    publicPath: '/public/',
     filename: 'build.js'
   },
   module: {
@@ -34,7 +35,10 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          //name: '[name].[ext]?[hash]'
+          name:function(file){
+            return 'assets/[name].[ext]?[hash]';
+          }
         }
       }
     ]
@@ -65,12 +69,22 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   sourceMap: true,
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
+    new UglifyJsPlugin({
+            "uglifyOptions":
+                {
+                    compress: {
+                        warnings: false
+                    },
+                    sourceMap: true
+                }
+        }
+    ),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
