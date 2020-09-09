@@ -40,7 +40,7 @@ export default {
             if(this.itemPosts.profilepicture){
                 return this.itemPosts.profilepicture;
             }else{
-                 return '/dist/images/avatar-04.png'
+                 return '/public/images/avatar-04.png'
             }
         },
         getTimeRelative(){

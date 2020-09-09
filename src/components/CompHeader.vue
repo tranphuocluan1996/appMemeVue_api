@@ -68,7 +68,7 @@ export default {
 			if(this.currentUser && this.currentUser.profilepicture){
 				return this.currentUser.profilepicture
 			}else{
-				return '/dist/images/user-default.jpg'
+				return '/public/images/user-default.jpg'
 			}
 		}
 	},

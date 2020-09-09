@@ -199,7 +199,7 @@ export default {
             }else if(this.obj_image.baseUrl64){
             return this.obj_image.baseUrl64
             }else{
-              return '/dist/images/no_image_available.jpg'
+              return '/public/images/no_image_available.jpg'
             }
         }
     },

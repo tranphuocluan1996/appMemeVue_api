@@ -32,7 +32,7 @@ export default {
             if(this.itemPosts.url_image){
                 return this.itemPosts.url_image;
             }else{
-                return '/dist/images/microphone-1209816_1920.jpg';
+                return '/public/images/microphone-1209816_1920.jpg';
             }
         },
          conFigContent(){

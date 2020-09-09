@@ -30,7 +30,7 @@ export default {
             if(this.comments.profilepicture){
                 return this.comments.profilepicture
             }else{
-                return '/dist/images/avatar-02.png'
+                return '/public/images/avatar-02.png'
             }
         }
     }

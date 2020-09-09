@@ -6,7 +6,7 @@
                 <div class="ass1-head-user__info-head">
                     <div class="ass1-head-user__name">
                         <span>{{userInfo.fullname}}</span> 
-                        <i><img src="/dist/fonts/emotion/svg/Verified.svg" alt=""></i>
+                        <i><img src="/public/fonts/emotion/svg/Verified.svg" alt=""></i>
                     </div>
                     <div class="w-100"></div>
                     <a v-if="userInfo.USERID != currentUser.USERID" href="#" class="ass1-head-user__btn-follow ass1-btn">Theo dõi</a>
@@ -41,7 +41,7 @@ export default {
            if(this.userInfo){
                return this.userInfo.profilepicture
            }else{
-               return '/dist/images/cat-1634369_1920.jpg'
+               return '/public/images/cat-1634369_1920.jpg'
            }
         }
     },
