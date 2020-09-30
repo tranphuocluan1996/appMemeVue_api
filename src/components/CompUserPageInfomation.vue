@@ -14,6 +14,8 @@
                         <router-link v-bind:to="{name:'change-password',params:{id:currentUser.USERID}}" class="ass1-head-user__btn-follow ass1-btn">Đổi mật khẩu</router-link>
                         <router-link v-bind:to="{name:'profile-page',params:{id:currentUser.USERID}}" class="ass1-head-user__btn-follow ass1-btn">Profile</router-link>
                     </template>
+                    <router-link to="/dashboard/posts" class="ass1-head-user__btn-follow ass1-btn">Quản lý danh sách bài viết</router-link>
+                    <router-link v-bind:to="{name:'profile-page',params:{id:currentUser.USERID}}" class="ass1-head-user__btn-follow ass1-btn">Quản lý user</router-link>
                     <!-- <a href="#" class="ass1-head-user__btn-options ass1-btn-icon"><i class="icon-Options"></i></a> -->
                 </div>
                 <div class="ass1-head-user__info-statistic">

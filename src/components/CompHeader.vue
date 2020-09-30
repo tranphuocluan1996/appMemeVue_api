@@ -18,10 +18,10 @@
 					</form>
 				</div>
 				<router-link to="/upload" class="ass1-header__btn-upload ass1-btn">
-					<i class="icon-Upvote"></i> Upload
+					<i class="icon-Upvote"></i> Đăng ảnh
 				</router-link>
 				<router-link to="/login" v-if="!isLogin" class="ass1-header__btn-upload ass1-btn">
-					Login
+					Đăng nhập
 				</router-link>
 				<!--  Đã đăng nhập thành công -->
 				<div class="wrapper-user" v-else-if="currentUser">
@@ -33,7 +33,7 @@
 						
 						<span class="email"> {{currentUser.email}}</span>
 					</router-link>
-					<div v-on:click="handleLogout" class="logout">Logout</div>
+					<div v-on:click="handleLogout" class="logout">Đăng xuất</div>
 				</div>
 
 			</div>
@@ -136,9 +136,9 @@ export default {
 	}
 	.logout {
 		right: 0;
-		top: 100%;
+		/* top: 100%; */
 		position: absolute;
-		background-color: #fff;
+		background-color:peru;
 		padding: 10px 30px;
 		min-width: 150px;
 		text-align: right;
@@ -149,6 +149,9 @@ export default {
 		opacity: 0;
 		pointer-events: none;
 		cursor: pointer;
+		
+		color: black;
+		opacity: 0;
 	}
 	.wrapper-user .logout:hover,
 	.wrapper-user .user-header:hover + .logout {

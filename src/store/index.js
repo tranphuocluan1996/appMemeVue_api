@@ -16,7 +16,8 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== "production",
   // state: state,
   state: {
-    isLoading: false
+    isLoading: false,
+   
   },
   actions: {
     setLoading({ commit }, loading = false) {

@@ -17,7 +17,7 @@ export default {
           if(this.itemPosts.count){
               return this.itemPosts.count
           }else{
-              return 10;
+              return 0;
           }
         }
     },

@@ -82,7 +82,7 @@ export default {
 
 body {
   
-  font-family: 'Roboto', sans-serif;
+  font-family: fantasy;
   background-color: #eef3f6;
   font-size: 16px;
   color: #1e1633;
@@ -2254,7 +2254,8 @@ select.form-control:focus {
   z-index: 100000;
   -webkit-box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
-  background: #4267b2 !important;
+  background: peru !important;
+  color: lemonchiffon !important;
 }
 .ass1-header > .container {
   flex-wrap: wrap;

@@ -23,11 +23,23 @@ export default {
 
   // gán dữ liệu vào store/state/posts
   SET_POST_BY_USERID(state,data){
-    state.posts = data
+    state.posts = data,
+    state.listTask = data
   },
 
   GET_CURRENT_USEER(state,data){
     state.currentUser = data
-  }
+  },
+
+  HANDLE_DELETE_ITEM(state,resultListTaskAfterDelete){
+       
+         state.listTask.posts.splice(resultListTaskAfterDelete, 1);
+        
+        
+    },
+
+
+
+  
 
 };

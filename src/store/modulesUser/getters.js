@@ -11,5 +11,10 @@ export default {
 
     getListPostByUserid(state){
         return state.posts.posts; //posts = cả data = (message, posts, status)
+    },
+
+
+    getDashboard(state){
+        return state.listTask.posts;
     }
 }

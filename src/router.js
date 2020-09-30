@@ -11,6 +11,8 @@ import ProfilePage from "./pages/ProfilePage.vue";
 import UserPage from "./pages/UserPage.vue";
 import ChangePassword from "./pages/ChangePassword.vue";
 import Search from './pages/Search.vue'
+import DashboardListPosts from './pages/ListPost.vue'
+import DashboardListUser from "./components/DashboardListPosts.vue";
 
 
 import { ifNotAuthenticated, ifAuthenticated } from "./plugins/authenticator";
@@ -50,6 +52,16 @@ const routes = [
     name: "post-detail"
   },
   {
+    path: "/dashboard/posts",
+    component: DashboardListPosts,
+    name: "dashboard-posts"
+  },
+  {
+    path: "/dashboard/edit-user/:id",
+    component: DashboardListUser,
+    name: "dashboard-users"
+  },
+  {
     path: "/user/:id/profile/",
     component: ProfilePage,
     name: "profile-page",
@@ -69,17 +81,11 @@ const routes = [
     beforeEnter: ifAuthenticated
   },
 
-
   {
     path: "/search",
     component: Search,
-    name: "search-page",
-
-  },
-
-
-
-
+    name: "search-page"
+  }
 ];
 
 // 3. Create the router instance and pass the `routes` option
