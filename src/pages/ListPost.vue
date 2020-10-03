@@ -16,35 +16,46 @@
                         <th>Hình ảnh/Tên bài viết</th>						
                         <th>ID Bài viết</th>						
                         <th>Người đăng</th>
-                        <th>Trạng thái</th>
+                        <!-- <th>Trạng thái</th> -->
                         <th>Thời gian đăng bài</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
+
+
+                <!-- pagination ant desighn -->
+
+
+                
+                <!--  -->
                 <tbody>
-                    <list-post-item 
-                    
+                    <list-post-item                      
                     v-for="(item, index) in getDashboard"   
                     v-bind:key="item.PID"
                     v-bind:index="index"
                     v-bind:listPostAdmin="item"
                     
-                    />
+                    /> 
                    
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text" v-if="getDashboard && getDashboard.length">Hiển thị <b>{{getDashboard.length}}</b> của <b>{{this.getDashboard.length}}</b> tất cả bài viết</div>
-               <paginate v-if="getDashboard && getDashboard.length"
-                  :page-count="5"
-                  :page-range="getDashboard.length"
-                  :margin-pages="2"
-                  
-                  :prev-text="'Prev'"
-                  :next-text="'Next'"
-                  :container-class="'pagination'"
-                  :page-class="'page-item'">
-                </paginate>
+                <!-- <div class="hint-text" v-if="getDashboard && getDashboard.length">Hiển thị <b>{{getDashboard.length}}</b> của <b>{{this.getDashboard.length}}</b> tất cả bài viết</div> -->
+
+
+               <div class="container">
+                <template v-if="this.getDashboard && this.getDashboard.length">
+                    <div>
+                       
+                        <a-pagination
+                        :total='this.getDashboard.length'
+                        :show-total="(total, range)  => `${range[0]}-${range[1]} of ${total} Bài viết`"
+                        :page-size="this.pageSize"
+                        :default-current="1"
+                        />
+                    </div>
+                    </template>
+               </div>
             </div>
         </div>
     </div>
@@ -54,17 +65,26 @@
 </template>
 
 <script>
+import {PAGE_SIZE,CURRENT_PAGE} from '../constance'
 import {parseJwt} from "../helpder";
 import {mapActions, mapGetters} from 'vuex'
 import ListPostItem from '../components/ListPostItem'
 export default {
+    data() {
+        return {
+            pageSize: PAGE_SIZE,      // số lượng bài viết cần load 
+            currPage: CURRENT_PAGE,   // trang hiện tại 0
+            tagIndex : parseInt(this.$route.query.tagIndex)
+        }
+    },
 
   components:{
     ListPostItem
   },
   computed: {
       ...mapGetters([
-        'getDashboard'
+        'getDashboard',
+        'getListPost'
       ])
   },
 
@@ -73,14 +93,61 @@ export default {
   created() {
      this.fetchAllDataDashboard()
 
+     // gọi pagination 
+      var tagIndex = this.$route.query.tagIndex;
+       if(tagIndex){
+          //rest api getListByCategory
+          this.getListByCategory({tagIndex:tagIndex}) // Để biết trang path url tagIndex chính là tagIndex cần gọi
+         
+      }else{
+           //rest api getListPagination
+           this.getListPagination({})
+      }
+
       
+  },
+   watch: {
+    '$route'(to, from) {
+    //   console.log(from);
+    //   console.log(to);
+     this.tagIndex = to.query.tagIndex;
+     this.currPage = 1;
+      var tagIndex = to.query.tagIndex
+      if(tagIndex){
+          //rest api getListByCategory
+          this.getListByCategory({tagIndex:tagIndex})
+         
+      }else{
+           //rest api getListPagination
+           this.getListPagination({})
+      }
+    }
   },
   
  
   methods: {
+      handlePagination(){
+          //khi click thì tăng currPage lên 1 đơn vị
+           this.currPage = this.currPage + 1;
+           let data = {
+               pageSize: this.pageSize,
+               currPage: this.currPage,
+               tagIndex : this.tagIndex
+           }
+            var tagIndex = this.$route.query.tagIndex;
+       if(tagIndex){
+          //rest api getListByCategory
+          this.getListByCategory(data)
+         
+      }else{
+           //rest api getListPagination
+           this.getListPagination(data)
+      }
+      },
    
     ...mapActions([
-      'getPostListByUserId'
+      'getPostListByUserId',
+      'getListPagination'
     ]),
 
      fetchAllDataDashboard(){
@@ -99,6 +166,107 @@ export default {
 </script>
 
 <style>
+html, body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #222;
+}
+
+a{
+  text-decoration: none;
+}
+
+p, li, a{
+  font-size: 14px;
+}
+
+/* GRID */
+
+.twelve { width: 100%; }
+.eleven { width: 91.53%; }
+.ten { width: 83.06%; }
+.nine { width: 74.6%; }
+.eight { width: 66.13%; }
+.seven { width: 57.66%; }
+.six { width: 49.2%; }
+.five { width: 40.73%; }
+.four { width: 32.26%; }
+.three { width: 23.8%; }
+.two { width: 15.33%; }
+.one { width: 6.866%; }
+
+/* COLUMNS */
+
+.col {
+	display: block;
+	float:left;
+	margin: 1% 0 1% 1.6%;
+}
+
+.col:first-of-type {
+  margin-left: 0;
+}
+
+.container{
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+/* CLEARFIX */
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
+/* GENERAL STYLES */
+
+.pagination{
+  padding: 30px 0;
+}
+
+.pagination ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.pagination a{
+  display: inline-block;
+  padding: 10px 18px;
+  color: #222;
+}
+
+/* ONE */
+
+.p1 a{
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+}
+
+.p1 a.is-active{
+  background-color: #2ecc71;
+  border-radius: 100%;
+  color: #fff;
+}
 body {
     color: #566787;
     background: #f5f5f5;

@@ -3,6 +3,9 @@ import App from './App.vue'
 import Notifications from "vue-notification";
 import MenuIcon from "vue-material-design-icons/Menu.vue";
 import Paginate from "vuejs-paginate";
+import Antd from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
+Vue.use(Antd);
 Vue.component("paginate", Paginate);
 
 Vue.component("menu-icon", MenuIcon);

@@ -4,14 +4,20 @@
         <td><a href="#"><img v-bind:src=customAvatar class="avatar" alt="Avatar">{{listPostAdmin.post_content}}</a></td>
         <td>{{ listPostAdmin.PID }}</td>               
         <td>{{listPostAdmin.fullname}}</td>
-        <td>
-            <!-- Material switch -->
+        <!-- status -->
+        <!-- <td>
+            
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                <label class="custom-control-label" for="customSwitch1"></label>
-                <!-- <label class="custom-control-label" for="customSwitch1">Chưa kích hoạt</label> -->
+            <select  v-on:click="handleSort" v-model="status" name="ds" class="form-control" required="required">
+                <option 
+             value="0">Active</option>
+                <option  value="1">InActive</option>
+            </select>
+                
+
+                
             </div>
-        </td>
+        </td> -->
         <td>{{listPostAdmin.time_added}}</td>
         
         <td>
@@ -22,13 +28,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {mapActions} from 'vuex'
 export default {
+   data() {
+        return {
+            status:'0',
+            postid:this.listPostAdmin.PID
+        }
+    },
+    
+    
+  
     props:{
         listPostAdmin:{type:Object, default:{}},
         index:{type:Number, default:0}
     },
     computed: {
+          ...mapState([
+              'taskSelected'
+          ]),
         customAvatar(){
             if(this.listPostAdmin.url_image){
                     return this.listPostAdmin.url_image
@@ -38,9 +57,30 @@ export default {
         }
     },
     methods: {
+        handleSort(){
+         
+             let postid = this.postid
+        this.Status(postid).then(res=>{
+            console.log(res)
+        //   if(res.ok){
+        //             this.$notify({
+        //             group: "noti",
+        //             duration: 10000,
+        //             type: "success",
+        //             title: "Thông báo",
+        //             text:   res.body
+        //             });
+        //         }
+        })
+        },
+
+        handleStatus(){
+            console.log('a')
+        },
         ...mapActions([
             'handleDeleteDashboard',
-            'delete'
+            'delete',
+            'Status'
         ]),
         handleDelete(){
            
@@ -71,5 +111,10 @@ export default {
 </script>
 
 <style>
-
+    .custom-control {
+        padding: 0;
+        width: 102px;
+        border: node;
+        font-size: 10px;
+    }
 </style>

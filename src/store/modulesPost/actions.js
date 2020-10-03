@@ -57,27 +57,26 @@ export default {
 
       //Bước 4 : Nếu như = 200 là ok rồi. sẽ lưu result api này và0 trong store
       if (result.data.status === 200) {
-
         //Bước 8 dispatch actions/user getUserById và truyền USERID qua
         // var resultUser = await dispatch("getUserById",result.data.data.post.USERID);
         // var result = await dispatch("GetListComentByPost", postid);
 
-
         var promiseUser = dispatch("getUserById", result.data.data.post.USERID);
         var promiseComments = dispatch("GetListComentByPost", postid);
-        let [resultUser, resultComments] = await Promise.all([promiseUser,promiseComments]);
+        let [resultUser, resultComments] = await Promise.all([
+          promiseUser,
+          promiseComments
+        ]);
         console.log("resultComments", resultComments);
-
 
         let dataPostDetail = {
           ...result.data.data,
-          comments:[]
-        }
+          comments: []
+        };
         if (resultComments.ok) {
           dataPostDetail.comments = resultComments.data;
         }
 
-    
         commit("SET_LOADING", false);
         // Say khi gọi đc api getUserById trong actions user trong comp
         // Tiền hành lưu nó trong state và dùng getters để xử lý
@@ -101,23 +100,21 @@ export default {
     }
   },
 
-
-
   // search
-  async search({commit},data){
+  async search({ commit }, data) {
     commit("SET_LOADING", true);
     try {
-      let result = await axiosInstance.get("/post/search.php?query="+data);
-       commit("SET_LOADING", false);
-      if(result.data.status === 200){
-          return {
-            ok: true,
-            data: result.data.posts
-          };
-      }else{
-        return{
-          ok:false
-        }
+      let result = await axiosInstance.get("/post/search.php?query=" + data);
+      commit("SET_LOADING", false);
+      if (result.data.status === 200) {
+        return {
+          ok: true,
+          data: result.data.posts
+        };
+      } else {
+        return {
+          ok: false
+        };
       }
     } catch (error) {
       commit("SET_LOADING", false);
@@ -127,70 +124,73 @@ export default {
       };
     }
   },
-  // upload 
-  async CreateNewPost({commit},{url_image= '',post_content='', obj_image = null, category = ''}){
+  // upload
+  async CreateNewPost(
+    { commit },
+    { url_image = "", post_content = "", obj_image = null, category = "" }
+  ) {
     try {
       // thêm trường form-data
       var bodyFormData = new FormData();
-          bodyFormData.append("url_image", url_image);
-          bodyFormData.append("post_content", post_content);
-          bodyFormData.append("category", category);
-          if(obj_image){
-              bodyFormData.append("obj_image", obj_image);
-          }
-          let config = {
-            headers:{
-              'Authorization':'Bearer '+localStorage.getItem('ACESS_TOKEN'),
-              'Content-Type': 'multipart/form-data'
-            }
-          }
-
-        
-      let result = await axiosInstance.post("/post/addNew.php",bodyFormData,config);
-      if(result.data.status === 200){
-          return {
-            ok:true,
-            data:result.data.data
-          }
-      }else{
-         return {
-           ok: false,
-           error: result.data.error
-         };
+      bodyFormData.append("url_image", url_image);
+      bodyFormData.append("post_content", post_content);
+      bodyFormData.append("category", category);
+      if (obj_image) {
+        bodyFormData.append("obj_image", obj_image);
       }
-
-      
-    } catch (error) {
-       return {
-        ok: false,
-        error: error.message
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("ACESS_TOKEN"),
+          "Content-Type": "multipart/form-data"
+        }
       };
-    }
+      // console.log("bodyFormData new post", bodyFormData);
 
-
-    //
-
-  },
-
-
-
-  // lấy comment 
-  async GetListComentByPost({commit}, postid){
-    try {
-      let result = await axiosInstance.get("/comment/comments.php?postid="+ postid);
-      if(result.data.status === 200){
+      let result = await axiosInstance.post(
+        "/post/addNew.php",
+        bodyFormData,
+        config
+      );
+      if (result.data.status === 200) {
         return {
           ok: true,
-          data: result.data.comments
+          data: result.data.data
         };
-      }else{
+      } else {
         return {
           ok: false,
           error: result.data.error
         };
       }
     } catch (error) {
-       return {
+      return {
+        ok: false,
+        error: error.message
+      };
+    }
+
+    //
+  },
+
+  // lấy comment
+  async GetListComentByPost({ commit }, postid) {
+    try {
+      let result = await axiosInstance.get(
+        "/comment/comments.php?postid=" + postid
+      );
+      if (result.data.status === 200) {
+        return {
+          ok: true,
+          data: result.data.comments
+        };
+      } else {
+        return {
+          ok: false,
+          error: result.data.error
+        };
+      }
+    } catch (error) {
+      return {
         ok: false,
         error: error.message
       };
@@ -198,20 +198,23 @@ export default {
   },
 
   // postComments
-  async PostNewCommentForNews({commit, rootState},data){
-     commit("SET_LOADING", true);
+  async PostNewCommentForNews({ commit, rootState }, data) {
+    commit("SET_LOADING", true);
     try {
       let config = {
-        headers:{
-          'Content-Type':'application/json',
-          'Authorization': 'Bearer '+ localStorage.getItem('ACESS_TOKEN')
-
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("ACESS_TOKEN")
         }
-      }
-      let result = await axiosInstance.post("/comment/add_new.php",data, config);
-       commit("SET_LOADING", false);
+      };
+      let result = await axiosInstance.post(
+        "/comment/add_new.php",
+        data,
+        config
+      );
+      commit("SET_LOADING", false);
       // console.log("result CommentNeew", result);
-      if(result.data.status === 200){
+      if (result.data.status === 200) {
         let comment = {
           ...result.data.body,
           fullname: rootState.user.currentUser.fullname,
@@ -224,21 +227,103 @@ export default {
           ok: true,
           data: comment
         };
-      }else{
-         return {
-           ok: false,
-           
-         };
+      } else {
+        return {
+          ok: false
+        };
       }
-      
     } catch (error) {
-       commit("SET_LOADING", true);
+      commit("SET_LOADING", true);
+      return {
+        ok: false,
+        error: error.message
+      };
+    }
+  },
+
+  //Edit post
+  async EditPost(
+    { commit },
+    {
+      url_image = "",
+      post_content = "",
+      obj_image = null,
+      category = "",
+      postid = ""
+    }
+  ) {
+    try {
+      // thêm trường form-data
+      var bodyFormData = new FormData();
+      bodyFormData.append("url_image", url_image);
+      bodyFormData.append("post_content", post_content);
+      bodyFormData.append("category", category);
+      bodyFormData.append("postid", postid);
+      if (obj_image) {
+        bodyFormData.append("obj_image", obj_image);
+      }
+      let config = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("ACESS_TOKEN"),
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      
+
+      let result = await axiosInstance.post(
+        "/post/edit.php",
+        bodyFormData,
+        config
+      );
+
+      if (result.data.status === 200) {
+        return {
+          ok: true,
+          data: result.data.data
+        };
+      } else {
         return {
           ok: false,
-          error: error.message
+          error: result.data.error
         };
+      }
+    } catch (error) {
+      return {
+        ok: false,
+        error: error.message
+      };
+    }
+
+    //
+  },
+
+  async Status({ commit, dispatch }, postid) {
+    commit("SET_LOADING", true);
+    try {
+      const config = {
+       headers: {
+          Authorization: "Bearer " + localStorage.getItem("ACESS_TOKEN"),
+         
+        }
+      }
+        const data = {postid}
+        const result = await axiosInstance.post("/post/activeDeactive.php",data,config);
+        commit("SET_LOADING", false);
+      if(result.data.status === 200){
+        return {ok:true, body:result.data.message}
+
+      }else {
+        return {
+          ok:false, error :result.data.error
+        }
+      }
+    } catch (error) {
+      commit("SET_LOADING", false);
+      // return lỗi này để qua bên comp .then(res=>{}) ta có thể lấy dc promise
+      return {
+        ok: false,
+        error: error.message
+      };
     }
   }
-
-
 };

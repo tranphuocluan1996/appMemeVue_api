@@ -99,6 +99,9 @@ export default {
       id: 24
     }
   ],
-  postDetail:null
+  postDetail:null,
+
+
+taskSelected: '0'
   
 };

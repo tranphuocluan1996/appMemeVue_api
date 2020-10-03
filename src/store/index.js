@@ -11,13 +11,11 @@ import user from './modulesUser'
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-
   // namespaced: true,
   strict: process.env.NODE_ENV !== "production",
   // state: state,
   state: {
-    isLoading: false,
-   
+    isLoading: false
   },
   actions: {
     setLoading({ commit }, loading = false) {
@@ -31,6 +29,7 @@ const store = new Vuex.Store({
   },
 
   modules: {
+
     post,
     user
   }

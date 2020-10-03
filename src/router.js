@@ -11,8 +11,9 @@ import ProfilePage from "./pages/ProfilePage.vue";
 import UserPage from "./pages/UserPage.vue";
 import ChangePassword from "./pages/ChangePassword.vue";
 import Search from './pages/Search.vue'
-import DashboardListPosts from './pages/ListPost.vue'
+// import DashboardListPosts from './pages/ListPost.vue'
 import DashboardListUser from "./components/DashboardListPosts.vue";
+import Admin from './components/Admin.vue'
 
 
 import { ifNotAuthenticated, ifAuthenticated } from "./plugins/authenticator";
@@ -51,9 +52,15 @@ const routes = [
     component: PostDetail,
     name: "post-detail"
   },
+  // {
+  //   path: "/dashboard/posts",
+  //   component: DashboardListPosts,
+  //   name: "dashboard-posts"
+  // },
+
   {
     path: "/dashboard/posts",
-    component: DashboardListPosts,
+    component: Admin,
     name: "dashboard-posts"
   },
   {
