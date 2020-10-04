@@ -88,8 +88,10 @@ export default {
                         newPassword,
                         reNewPassword,
                     }
-          
-                    this.changePassword(data).then(res=>{
+                    console.log('data chang password',data)
+
+                    if(data){
+                        this.changePassword(data).then(res=>{
                         console.log('res',res);
                         if(res.ok){
                             // alert(res.message)
@@ -105,6 +107,8 @@ export default {
                            alert(res.error)
                         }
                     })
+                    }
+                    
 
                 }
             }else{

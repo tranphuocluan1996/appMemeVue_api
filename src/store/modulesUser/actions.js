@@ -257,18 +257,20 @@ export default {
 
   //Chức năng đổi mật khẩu :
   async changePassword({ commit }, data) {
+    console.log('data action changepasswrod',data)
     commit("SET_LOADING", true);
     try {
        let config = {
-         params: {
-           userid: userid
-         },
+        //  params: {
+        //    userid: userid
+        //  },
          headers: {
-           accept: "application/json",
-           Authorization: "Bearer " + localStorage.getItem("ACESS_TOKEN")
+           'Content-Type': "application/json",
+           'Authorization': "Bearer " + localStorage.getItem("ACESS_TOKEN")
          }
        };
       let result = await axiosInstance.post("/member/password.php",data,config);
+    
       commit("SET_LOADING", false);
       if (result.data.status === 200) {
         return {
