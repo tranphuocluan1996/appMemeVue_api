@@ -1,8 +1,42 @@
 <template>
-  <div>
+
+  <div> 
+
+    <!-- pagination new -->
+     <!-- <template>
+            <div v-if="data && data.length">
+
+              <a-pagination
+                :total="data.length"
+                :show-total="(total, range) => `Từ trang ${ range[0]} đến trang ${ range[1]} của ${total} trang`"
+                :page-size="5"
+                :default-current="1"
+              />
+            </div>
+          </template> -->
+     
+
+        <!-- pagination old -->
       <a-table 
-      :pagination='{pageSize: 5}' :data-source="data"
+        :pagination='{pageSize: 5, showTotal}'
+      
+        
+        :data-source="data" 
+       
       >
+
+         
+     
+      
+        <!-- <a-pagination
+        :data-source="data"
+          :show-total="(total, range) => `${range[0]}-${range[1]} of ${total} items`"
+          :total="85"
+          
+          :page-size="5"
+          :default-current="1"
+        />     -->
+      <!-- :pagination='{pageSize: 5}' :data-source="data" -->
       
      <a-table-column key="STT" title="#">
         <template slot-scope="text, item, index">
@@ -20,7 +54,7 @@
     <!-- <a-table-column key="PID" title="PID" data-index="PID" /> -->
     <!-- <a-table-column key="url_image" title="url_image" data-index="url_image" /> -->
 
-    <a-table-column class="img" title="Hình ảnh" data-index="url_image">
+    <a-table-column class="img" title="Hình ảnh" data-index="url_image" >
       <template slot-scope="text, item, index">
         <span >
           <img v-bind:src="text"/>
@@ -68,24 +102,14 @@
 
 
   <!-- total -->
-    <template>
-      <div>
-        <a-pagination
-        
-          :total="85"
-          :show-total="(total, range) => `${range[0]}-${range[1]} of ${total} items`"
-          :page-size="20"
-          :default-current="1"
-        />
-      </div>
-    </template>
+    
+
  
   </div>
   
 </template>
 
-
-
+  
 
 
 <script>
@@ -101,6 +125,9 @@ export default {
     };
   },
   methods: {
+    showTotal(){
+      return 
+    },
       ...mapActions([
             'handleDeleteDashboard',
             'delete',
