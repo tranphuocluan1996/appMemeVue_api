@@ -1,6 +1,8 @@
 
 <template>
+
   <main>
+      
         <div class="container">
             <!--sections-->
             <div class="row">
@@ -110,6 +112,21 @@ export default {
       
     },
     methods: {
+
+        // ant design notify 
+            // openNotification() {
+            // this.$notification.open({
+            //     message: 'Notification Title',
+            //     description:
+            //     'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+            //     onClick: () => {
+            //     console.log('Notification Clicked!');
+            //     },
+            // });
+            // },
+
+
+
        ...mapActions([
            'getPostDetail',
            'getUserById',
@@ -149,13 +166,21 @@ export default {
                 this.PostNewCommentForNews(data).then(res=>{
                     if(res.ok){
                         //alert('Bình luận thành công')
-                        this.$notify({
-                                group: 'noti',
-                                duration: 10000,
-                                type: 'success',
-                                title: 'Thông báo',
-                                text: 'Bình luận thành công'
-                            });
+                        // this.$notify({
+                        //         group: 'noti',
+                        //         duration: 10000,
+                        //         type: 'success',
+                        //         title: 'Thông báo',
+                        //         text: 'Bình luận thành công'
+                        //     });
+                        this.$notification.open({
+                                duration:3,
+                                message: 'Thông báo',
+                                description:
+                                'Bình luận thành công.',
+                                // duration: 0,
+                              
+                        });
                         this.newComments = ''
                     }else{
                         //alert('Lỗi bình luận')
