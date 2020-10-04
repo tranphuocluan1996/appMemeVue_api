@@ -31,8 +31,12 @@ const ifAuthenticated = (to,from,next)=>{
             name:"login-page",
             query:{
                 redirect:to.name
+                
             }
-        })
+            
+        }),
+        alert("Vui lòng đăng nhập để truy cập vào trang này !");
+       
     }
    
 }

@@ -61,12 +61,14 @@ const routes = [
   {
     path: "/dashboard/posts",
     component: Admin,
-    name: "dashboard-posts"
+    name: "dashboard-posts",
+    beforeEnter: ifAuthenticated
   },
   {
     path: "/dashboard/edit-user/:id",
     component: DashboardListUser,
-    name: "dashboard-users"
+    name: "dashboard-users",
+    beforeEnter: ifAuthenticated
   },
   {
     path: "/user/:id/profile/",
